@@ -1,5 +1,5 @@
-* **[[Home|http://github.com/remeniuk/nodejs-scala-connector/wiki]]**
-* **[[Actor Proxy API|http://github.com/remeniuk/nodejs-scala-connector/wiki/Actor-Proxy-API]]**
+* **[Home](http://github.com/remeniuk/nodejs-scala-connector/wiki)**
+* **[Actor Proxy API](http://github.com/remeniuk/nodejs-scala-connector/wiki/Actor-Proxy-API)**
 * **[[Example|http://github.com/remeniuk/nodejs-scala-connector/wiki/Example]]**
 
 Asynchronous nature of [[node.js|http://nodejs.org/]] and it's capabilities in handling huge number of connections (with a great potential for building COMET [[web-apps that doesn't suck|http://news.ycombinator.com/item?id=1088699]]) is extremely appealing. However, being a standalone solution (web-server, TCP-server etc), connecting node.js to another ecosystems is not that straightforward (though there're known options of extending node.js functionalities via [[C++ addons|http://nodejs.org/api.html#addons-326]]).
@@ -13,26 +13,25 @@ The most popular approach of bridging node.js to JVM (Ruby, etc) is setting up a
 **nodejs-scala-connector** modifies standard remote actor in order to serialize messages into protobuf. On the node.js side, [[net.Stream|http://nodejs.org/api.html#net-stream-225]] is used to asynchronously communicate with actors via TCP.
 ###Sample code of an actor proxy
 
-```js
-// Create new proxy for the remote actor
-var actorProxy = actors.createActorProxy('10.6.122.29', 12345, 'server')
 
-// Define handler to receive message from the actor asynchronously. Handler is a function that
-// maps FQCN of the protocol stub used by the actor and function that handles serialized response
-actorProxy.receive({
-    'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage': function(data){
-        console.log('Remote actor responded with: ' + StringMessage.parse(data).message)
-        actorProxy.end()
-        actorProxy.destroy()
-    }
-})
+    // Create new proxy for the remote actor
+    var actorProxy = actors.createActorProxy('10.6.122.29', 12345, 'server')
 
-// When proxy is loaded, start sending messages
-actorProxy.on('ready', function(){
-    actorProxy.send(
-        'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage',
-        StringMessage.serialize({
-            message: 'Message from node.js!'
-        }))
-})
-```
+    // Define handler to receive message from the actor asynchronously. Handler is a function that
+    // maps FQCN of the protocol stub used by the actor and function that handles serialized response
+    actorProxy.receive({
+        'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage': function(data){
+            console.log('Remote actor responded with: ' + StringMessage.parse(data).message)
+            actorProxy.end()
+            actorProxy.destroy()
+        }
+    })
+
+    // When proxy is loaded, start sending messages
+    actorProxy.on('ready', function(){
+        actorProxy.send(
+            'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage',
+            StringMessage.serialize({
+                message: 'Message from node.js!'
+            }))
+    })
