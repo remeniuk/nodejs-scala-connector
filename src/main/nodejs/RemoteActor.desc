@@ -1,0 +1,18 @@
+
+Ñ
+"protocol/RemoteActorProtocol.protocom.vasilrem.remote.protocol"*
+NodeProtocol
+host (	
+port (	"`
+LocatorProtocol8
+node (2*.com.vasilrem.remote.protocol.NodeProtocol
+serviceName (	"£
+NameSendProtocol=
+sender (2-.com.vasilrem.remote.protocol.LocatorProtocol?
+receiver (2-.com.vasilrem.remote.protocol.LocatorProtocol
+message ("7
+GenericMessageProtocol
+fqcn (	
+message (" 
+StringMessage
+message (	

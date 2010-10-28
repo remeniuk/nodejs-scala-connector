@@ -1,0 +1,29 @@
+//protoc RemoteActorProtocol.proto  --java_out ../../java    
+
+option java_package = "com.vasilrem.remote.protocol";
+option optimize_for = SPEED;
+
+message NodeProtocol {
+    required string host = 1;
+    required string port = 2;
+}
+
+message LocatorProtocol {
+    required NodeProtocol node = 1;
+    required string serviceName = 2;
+}
+
+message NameSendProtocol {
+    required LocatorProtocol sender = 1;
+    required LocatorProtocol receiver = 2;
+    required bytes message = 3;
+}
+
+message GenericMessageProtocol {
+    required string fqcn = 1;
+    required bytes message = 2;
+}
+
+message StringMessage {
+    required string message = 1;
+}
