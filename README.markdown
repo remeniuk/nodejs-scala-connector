@@ -1,3 +1,5 @@
+**DISClAIMER: nodejs-scala-connector is a proof-of-concept implementation**
+
 * **[Home](http://github.com/remeniuk/nodejs-scala-connector/wiki)**
 * **[Actor Proxy API](http://github.com/remeniuk/nodejs-scala-connector/wiki/Actor-Proxy-API)**
 * **[Example](http://github.com/remeniuk/nodejs-scala-connector/wiki/Example)**
