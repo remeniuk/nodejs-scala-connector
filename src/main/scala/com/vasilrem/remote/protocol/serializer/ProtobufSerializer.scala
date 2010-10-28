@@ -38,12 +38,6 @@ class ProtobufSerializer(serv: Service, cl: ClassLoader) extends JavaSerializer(
     deserialize(byteArray)
   }
 
-  def readStringifiedSize(inputStream: DataInputStream) = {
-    val stringBytes = new Array[Byte](4)
-    inputStream.read(stringBytes)
-    new String(stringBytes).trim.toInt
-  }
-
   override def serialize(o: AnyRef) = {
     val message = o match {
       case node: Node => toNodeProtocol(node)

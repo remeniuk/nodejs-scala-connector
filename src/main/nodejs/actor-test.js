@@ -10,16 +10,18 @@ var actorProxy = actors.createActorProxy('10.6.122.29', 12345, 'server')
 // Define handler to receive message from the actor asynchronously. Handler is a function that
 // maps FQCN of the protocol stub used by the actor and function that handles serialized response
 actorProxy.receive({
-	'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage': function(data){
-		console.log('Remote actor responded with: ' + StringMessage.parse(data).message)	       
-	    actorProxy.end()
+    'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage': function(data){
+        console.log('Remote actor responded with: ' + StringMessage.parse(data).message)
+        actorProxy.end()
         actorProxy.destroy()
-	}
+    }
 })
 
 // When proxy is loaded, start sending messages
 actorProxy.on('ready', function(){
-	actorProxy.send(
-		'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage',
-		StringMessage.serialize({message: 'Message from node.js!'}))	
+    actorProxy.send(
+        'com.vasilrem.remote.protocol.RemoteActorProtocol$StringMessage',
+        StringMessage.serialize({
+            message: 'Message from node.js!'
+        }))
 })
